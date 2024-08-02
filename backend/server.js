@@ -13,16 +13,11 @@ mongoose.connect(`${process.env.MONG_DBCONNECTION}`)
   .catch((error) => console.error('Error connecting to MongoDB:', error));
 
 
-// app.listen(process.env.PORT, () => {
-//   console.log(`Server is running on http://localhost:${process.env.PORT}`);
-// });
+  app.listen(process.env.PORT, () => {
+    console.log(`Server is running on http://localhost:${process.env.PORT}`);
+  });
 
-app.use(cors(
-  {
-    origin:["https://tic-tac-toe-app-mauve.vercel.app/"],
-    methods: ["POST", "GET", "PUT"],
-    credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // Get all games

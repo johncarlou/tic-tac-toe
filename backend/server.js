@@ -5,6 +5,7 @@ const Game = require('./models/Game');
 
 const app = express();
 
+// CORS configuration
 app.use(cors({
   origin: "https://tic-tac-toe-app-mauve.vercel.app", // No trailing slash
   methods: ["POST", "GET", "PUT"],

@@ -19,23 +19,27 @@ const HomePage = ({ startNewGame }) => {
 
   return (
     <div>
-      <h1>Tic Tac Toe</h1>
+      <h1 className="game-title">Tic Tac Toe</h1>
       <button onClick={startNewGame}>Start New Game</button>
-      <ul>
+      <ul className='ul-container'>
         {games.map((game) => (
-          <li key={game._id}>
-            {game.player1} vs {game.player2}
-            <div>
-              <h2>{game.player1} Stats</h2>
-              <p>Wins: {game.playerStats?.[game.player1]?.wins || 0}</p>
-              <p>Losses: {game.playerStats?.[game.player1]?.losses || 0}</p>
-              <p>Draws: {game.playerStats?.[game.player1]?.draws || 0}</p>
-            </div>
-            <div>
-              <h2>{game.player2} Stats</h2>
-              <p>Wins: {game.playerStats?.[game.player2]?.wins || 0}</p>
-              <p>Losses: {game.playerStats?.[game.player2]?.losses || 0}</p>
-              <p>Draws: {game.playerStats?.[game.player2]?.draws || 0}</p>
+          <li key={game._id} className = "score-board">
+            <h1>
+              {game.player1} vs {game.player2}
+            </h1>
+            <div className='div-stats'>
+              <div className='div-stats-inner'>
+                <h2>{game.player1} Stats</h2>
+                <p>Wins: {game.playerStats?.[game.player1]?.wins || 0}</p>
+                <p>Losses: {game.playerStats?.[game.player1]?.losses || 0}</p>
+                <p>Draws: {game.playerStats?.[game.player1]?.draws || 0}</p>
+              </div>
+              <div className='div-stats-inner'>
+                <h2>{game.player2} Stats</h2>
+                <p>Wins: {game.playerStats?.[game.player2]?.wins || 0}</p>
+                <p>Losses: {game.playerStats?.[game.player2]?.losses || 0}</p>
+                <p>Draws: {game.playerStats?.[game.player2]?.draws || 0}</p>
+              </div>
             </div>
           </li>
         ))}

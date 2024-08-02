@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../config/axiosConfig';
 
 const HomePage = ({ startNewGame }) => {
   const [games, setGames] = useState([]);

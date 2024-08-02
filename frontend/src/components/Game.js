@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../config/axiosConfig';
 
 const Game = ({ gameId, player1, player2, endGame }) => {
   const [board, setBoard] = useState(Array(9).fill(null));

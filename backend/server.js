@@ -17,7 +17,12 @@ mongoose.connect(process.env.MONG_DBCONNECTION)
     console.log(`Server is running on http://localhost:${process.env.PORT}`);
   });
 
-app.use(cors());
+app.use(cors(
+  {
+    origin:[""],
+    methods: ["POST", "GET", "PUT"],
+    credentials: true
+}));
 app.use(express.json());
 
 // Get all games

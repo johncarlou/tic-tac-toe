@@ -5,6 +5,14 @@ const Game = require('./models/Game');
 
 const app = express();
 
+// Custom CORS Middleware
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://tic-tac-toe-app-mauve.vercel.app');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  next();
+});
+
 // Apply CORS middleware
 app.use(
   cors({

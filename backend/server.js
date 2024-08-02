@@ -5,12 +5,7 @@ const Game = require('./models/Game');
 
 const app = express();
 
-const corsOptions ={
-    origin:'https://tic-tac-toe-app-mauve.vercel.app', 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
-}
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Middleware to parse JSON
 app.use(express.json());

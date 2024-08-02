@@ -17,7 +17,13 @@ mongoose.connect(`${process.env.MONG_DBCONNECTION}`)
     console.log(`Server is running on http://localhost:${process.env.PORT}`);
   });
 
-app.use(cors());
+  app.use(
+    cors({
+      origin: 'https://tic-tac-toe-app-mauve.vercel.app', // Allow requests from the deployed frontend
+      methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify which HTTP methods are allowed
+      credentials: true, // Allow credentials like cookies to be included in requests
+    })
+  );
 app.use(express.json());
 
 // Get all games

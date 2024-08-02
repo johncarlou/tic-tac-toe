@@ -13,7 +13,7 @@ const Game = ({ gameId, player1, player2, endGame }) => {
   useEffect(() => {
     const fetchGameData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/games/${gameId}`);
+        const response = await axios.get(`http://localhost:5000/games/${gameId}`);
         const { playerStats } = response.data;
         setPlayerStats(playerStats || {
           [player1]: { wins: 0, losses: 0, draws: 0 },
@@ -78,7 +78,7 @@ const Game = ({ gameId, player1, player2, endGame }) => {
       updatedStats[player2].draws += 1;
     }
 
-    axios.put(`${process.env.REACT_APP_API_URL}/games/${gameId}`, {
+    axios.put(`http://localhost:5000/games/${gameId}`, {
       playerStats: updatedStats,
     })
     .then(() => {

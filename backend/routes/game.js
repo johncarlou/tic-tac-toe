@@ -1,28 +1,49 @@
 const router = require('express').Router();
-let Game = require('../models/Game');
+const Game = require('../models/Game');
 
+// Get all games
 router.route('/').get((req, res) => {
   Game.find()
     .then(games => res.json(games))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// Add a new game
 router.route('/add').post((req, res) => {
   const player1 = req.body.player1;
   const player2 = req.body.player2;
 
-  const newGame = new Game({ player1, player2 });
+  // Initialize playerStats with empty stats
+  const playerStats = {
+    [player1]: { wins: 0, losses: 0, draws: 0 },
+    [player2]: { wins: 0, losses: 0, draws: 0 },
+  };
+
+  const newGame = new Game({
+    player1,
+    player2,
+    playerStats, // Add playerStats
+    wins: 0,
+    losses: 0,
+    draws: 0,
+    rounds: [],
+  });
 
   newGame.save()
     .then(() => res.json('Game added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/update/:id').post((req, res) => {
+// Update game data
+router.route('/update/:id').put((req, res) => {
   Game.findById(req.params.id)
     .then(game => {
+      if (!game) {
+        return res.status(404).json('Game not found');
+      }
+
       game.rounds.push(req.body.round);
-      game.stats = req.body.stats;
+      game.playerStats = req.body.playerStats; // Update playerStats
 
       game.save()
         .then(() => res.json('Game updated!'))
@@ -31,6 +52,8 @@ router.route('/update/:id').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+
+// End a game (if needed for future features)
 router.route('/end/:id').post((req, res) => {
   Game.findById(req.params.id)
     .then(game => {

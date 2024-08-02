@@ -1,56 +1,34 @@
+require('dotenv').config()
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const Game = require('./models/Game');
 
 const app = express();
-const PORT = 5000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://john:john2024@cluster0.lt7s1va.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONG_DBCONNECTION)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.error('Error connecting to MongoDB:', error));
 
-const gameSchema = new mongoose.Schema({
-  player1: String,
-  player2: String,
-  wins: Number,
-  losses: Number,
-  draws: Number,
-  rounds: Array,
-});
 
-const Game = mongoose.model('Game', gameSchema);
+  app.listen(process.env.PORT, () => {
+    console.log(`Server is running on http://localhost:${process.env.PORT}`);
+  });
 
 app.use(cors());
 app.use(express.json());
 
 // Get all games
 app.get('/games', async (req, res) => {
-  const games = await Game.find();
-  res.json(games);
+  try {
+    const games = await Game.find();
+    res.json(games);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
-
-// server.js
-
-// Update game data
-app.put('/games/:id', async (req, res) => {
-    const { id } = req.params;
-    const { wins, losses, draws } = req.body;
-    
-    try {
-      const updatedGame = await Game.findByIdAndUpdate(
-        id,
-        { $set: { wins, losses, draws } },
-        { new: true }
-      );
-      res.json(updatedGame);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  });
-  
-  
 
 // Start a new game
 app.post('/games', async (req, res) => {
@@ -58,15 +36,38 @@ app.post('/games', async (req, res) => {
   const newGame = new Game({
     player1,
     player2,
-    wins: 0,
-    losses: 0,
-    draws: 0,
+    playerStats: {
+      [player1]: { wins: 0, losses: 0, draws: 0 },
+      [player2]: { wins: 0, losses: 0, draws: 0 },
+    },
     rounds: [],
   });
-  await newGame.save();
-  res.json(newGame);
+  try {
+    const savedGame = await newGame.save();
+    res.json(savedGame);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// Update game data
+app.put('/games/:id', async (req, res) => {
+  const { id } = req.params;
+  const { playerStats } = req.body;
+
+  try {
+    const game = await Game.findById(id);
+    if (!game) {
+      return res.status(404).json({ message: 'Game not found' });
+    }
+
+    // Update player stats
+    game.playerStats = playerStats;
+    const updatedGame = await game.save();
+    res.json(updatedGame);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
+
+

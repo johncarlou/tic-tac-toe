@@ -5,9 +5,16 @@ const HomePage = ({ startNewGame }) => {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/games').then((response) => {
-      setGames(response.data);
-    });
+    const fetchGames = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/games`);
+        setGames(response.data);
+      } catch (error) {
+        console.error('Error fetching games:', error);
+      }
+    };
+
+    fetchGames();
   }, []);
 
   return (
@@ -17,7 +24,19 @@ const HomePage = ({ startNewGame }) => {
       <ul>
         {games.map((game) => (
           <li key={game._id}>
-            {game.player1} vs {game.player2} - Winner: {(game.wins ? game.player1 : game.player2)} - Losses: {(game.losses ? game.player1 : game.player2)} 
+            {game.player1} vs {game.player2}
+            <div>
+              <h2>{game.player1} Stats</h2>
+              <p>Wins: {game.playerStats?.[game.player1]?.wins || 0}</p>
+              <p>Losses: {game.playerStats?.[game.player1]?.losses || 0}</p>
+              <p>Draws: {game.playerStats?.[game.player1]?.draws || 0}</p>
+            </div>
+            <div>
+              <h2>{game.player2} Stats</h2>
+              <p>Wins: {game.playerStats?.[game.player2]?.wins || 0}</p>
+              <p>Losses: {game.playerStats?.[game.player2]?.losses || 0}</p>
+              <p>Draws: {game.playerStats?.[game.player2]?.draws || 0}</p>
+            </div>
           </li>
         ))}
       </ul>

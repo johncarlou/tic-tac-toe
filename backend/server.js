@@ -19,7 +19,7 @@ mongoose.connect(`${process.env.MONG_DBCONNECTION}`)
 
 app.use(cors(
   {
-    origin:[""],
+    origin:["https://tic-tac-toe-app-ivory.vercel.app/"],
     methods: ["POST", "GET", "PUT"],
     credentials: true
 }));

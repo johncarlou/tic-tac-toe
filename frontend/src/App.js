@@ -14,7 +14,7 @@ const App = () => {
   };
 
   const startGame = (player1, player2) => {
-    axios.post(`${process.env.REACT_APP_API_URL}/games`, { player1, player2 })
+    axios.post(`https://tictactoe-backend-five.vercel.app/games`, { player1, player2 })
       .then((response) => {
         setCurrentGame(response.data);
         setPage('game');

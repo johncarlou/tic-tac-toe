@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,26 +5,24 @@ const Game = require('./models/Game');
 
 const app = express();
 
+// Apply CORS middleware
+app.use(
+  cors({
+    origin: 'https://tic-tac-toe-app-mauve.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  })
+);
+
+// Middleware to parse JSON
+app.use(express.json());
+
 // Connect to MongoDB
 mongoose.connect(`${process.env.MONG_DBCONNECTION}`)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('Error connecting to MongoDB:', error));
 
-
-  app.listen(process.env.PORT, () => {
-    console.log(`Server is running on http://localhost:${process.env.PORT}`);
-  });
-
-  app.use(
-    cors({
-      origin: 'https://tic-tac-toe-app-mauve.vercel.app', // Allow requests from the deployed frontend
-      methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify which HTTP methods are allowed
-      credentials: true, // Allow credentials like cookies to be included in requests
-    })
-  );
-app.use(express.json());
-
-// Get all games
+// Define routes
 app.get('/games', async (req, res) => {
   try {
     const games = await Game.find();
@@ -36,7 +32,6 @@ app.get('/games', async (req, res) => {
   }
 });
 
-// Start a new game
 app.post('/games', async (req, res) => {
   const { player1, player2 } = req.body;
   const newGame = new Game({
@@ -56,7 +51,6 @@ app.post('/games', async (req, res) => {
   }
 });
 
-// Update game data
 app.put('/games/:id', async (req, res) => {
   const { id } = req.params;
   const { playerStats } = req.body;
@@ -76,4 +70,6 @@ app.put('/games/:id', async (req, res) => {
   }
 });
 
-
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on http://localhost:${process.env.PORT}`);
+});

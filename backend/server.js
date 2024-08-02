@@ -5,7 +5,13 @@ const Game = require('./models/Game');
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://tic-tac-toe-app-mauve.vercel.app',
+  methods: 'GET,POST,PUT',
+  allowedHeaders: 'Content-Type'
+};
+
+app.use(cors(corsOptions));
 
 // Middleware to parse JSON
 app.use(express.json());

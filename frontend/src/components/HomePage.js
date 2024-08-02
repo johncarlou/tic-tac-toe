@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const HomePage = ({ startNewGame }) => {
   const [games, setGames] = useState([]);
-
+axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchGames = async () => {
       try {

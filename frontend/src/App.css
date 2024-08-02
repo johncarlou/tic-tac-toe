@@ -14,14 +14,20 @@ body {
   background-color:#161409;
 }
 
+.container{
+  margin-bottom: 20px;
+}
+
 .ul-container{
-  display: flex;
-  padding: 10px;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .score-board {
   background-color: #FFD700;
   margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 h1, h2 {
@@ -33,6 +39,7 @@ h1, h2 {
 .game-title{
   font-size: 50px;
   color: White;
+  margin-top: 50px;
 }
 
 button, input {

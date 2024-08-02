@@ -94,10 +94,15 @@ const Game = ({ gameId, player1, player2, endGame }) => {
     return !board.includes(null) && !winner;
   };
 
+  const styles = {
+    h1: {
+      color:'white',
+    },
+  };
   return (
     <div>
       <div className="status">
-        {winner ? `Winner: ${winner}` : `Current player: ${xIsNext ? player1 : player2}`}
+        <h1 style={styles.h1}>{winner ? `Winner: ${winner}` : `Current player: ${xIsNext ? player1 : player2}`}</h1>
       </div>
       <div className="board">
         {board.map((value, index) => (

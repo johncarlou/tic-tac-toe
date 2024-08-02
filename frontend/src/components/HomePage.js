@@ -18,7 +18,7 @@ const HomePage = ({ startNewGame }) => {
   }, []);
 
   return (
-    <div>
+    <div className ="container">
       <h1 className="game-title">Tic Tac Toe</h1>
       <button onClick={startNewGame}>Start New Game</button>
       <ul className='ul-container'>

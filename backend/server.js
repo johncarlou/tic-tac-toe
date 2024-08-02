@@ -5,12 +5,17 @@ const Game = require('./models/Game');
 
 const app = express();
 
-// CORS configuration
+app.use((req, res, next) => {
+  console.log('CORS middleware executed');
+  next();
+});
+
 app.use(cors({
-  origin: "https://tic-tac-toe-app-mauve.vercel.app", // No trailing slash
+  origin: "https://tic-tac-toe-app-mauve.vercel.app",
   methods: ["POST", "GET", "PUT"],
   credentials: true
 }));
+
 
 // Middleware to parse JSON
 app.use(express.json());

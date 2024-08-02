@@ -7,7 +7,7 @@ const HomePage = ({ startNewGame }) => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get('https://tictactoe-backend-five.vercel.app/games');
+        const response = await axios.get('http://localhost:5000/games');
         setGames(response.data);
       } catch (error) {
         console.error('Error fetching games:', error);

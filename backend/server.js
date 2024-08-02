@@ -8,7 +8,7 @@ const Game = require('./models/Game');
 const app = express();
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONG_DBCONNECTION)
+mongoose.connect(`${process.env.MONG_DBCONNECTION}`)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('Error connecting to MongoDB:', error));
 

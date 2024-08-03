@@ -1,8 +1,7 @@
-// routes/game.js
 const router = require('express').Router();
 const Game = require('../models/Game');
 
-// Define your routes
+
 router.get('/', (req, res) => {
   Game.find()
     .then(games => res.json(games))

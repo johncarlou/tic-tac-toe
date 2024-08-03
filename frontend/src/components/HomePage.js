@@ -21,8 +21,8 @@ const HomePage = ({ startNewGame }) => {
 
   const handleDeleteAll = async () => {
     try {
-      await axios.delete('http://localhost:5000/games/deleteAll'); // Adjust URL if necessary
-      setGames([]); // Clear local state
+      await axios.delete('http://localhost:5000/games/deleteAll');
+      setGames([]); 
     } catch (error) {
       console.error('Error deleting games:', error);
     }

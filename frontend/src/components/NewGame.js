@@ -8,12 +8,10 @@ const NewGame = ({ startGame }) => {
     startGame(player1, player2);
   };
   useEffect(() => {
-    // Apply styles to the entire body
     document.body.style.backgroundColor = '#FFD700';
     document.body.style.margin = '0';
     document.body.style.padding = '0';
 
-    // Cleanup function to reset styles when the component unmounts
     return () => {
       document.body.style.backgroundColor = '';
       document.body.style.margin = '';

@@ -3,7 +3,7 @@ import HomePage from './components/HomePage';
 import NewGame from './components/NewGame';
 import Game from './components/Game';
 import axios from 'axios';
-import './App.css'; // Import the CSS file
+import './App.css';
 
 const App = () => {
   const [page, setPage] = useState('home');

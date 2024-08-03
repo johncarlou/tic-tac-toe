@@ -7,6 +7,7 @@ const gameRoutes = require('./routes/game');
 
 const app = express();
 
+//enable CORS
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -25,7 +26,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Tic-Tac-Toe API');
 });
 
-app.use('/games', gameRoutes); // Use the router here
+app.use('/games', gameRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

@@ -46,6 +46,7 @@ const Game = ({ gameId, player1, player2, endGame }) => {
     setXIsNext(!xIsNext);
   };
 
+//represents the state or position of X and O to determinine the winner
   const calculateWinner = (squares) => {
     const lines = [
       [0, 1, 2],
@@ -66,6 +67,7 @@ const Game = ({ gameId, player1, player2, endGame }) => {
     return null;
   };
 
+//check the status of the score/game
   const handleEndGame = () => {
     const updatedStats = { ...playerStats };
     if (winner && winner !== 'Draw') {
@@ -83,7 +85,7 @@ const Game = ({ gameId, player1, player2, endGame }) => {
     })
     .then(() => {
       setPlayerStats(updatedStats);
-      endGame();  // This should navigate back to homepage
+      endGame();
     })
     .catch(error => {
       console.error('Error updating game stats:', error);

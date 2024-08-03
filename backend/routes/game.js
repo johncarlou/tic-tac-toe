@@ -64,4 +64,14 @@ router.route('/end/:id').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+
+// Delete 
+router.route('/deleteAll').delete((req, res) => {
+  Game.deleteMany({})
+    .then(() => res.json('All games deleted!'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+
 module.exports = router;

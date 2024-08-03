@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+//ADD
 router.post('/add', (req, res) => {
   const { player1, player2 } = req.body;
 
@@ -22,8 +23,7 @@ router.post('/add', (req, res) => {
 
   const newGame = new Game({
     player1,
-    player2,
-    playerStats,
+    player2,playerStats,
     rounds: [],
   });
 
@@ -41,7 +41,7 @@ router.put('/update/:id', (req, res) => {
       }
 
       game.rounds.push(req.body.round);
-      game.playerStats = req.body.playerStats;
+      game.playerStats =req.body.playerStats;
 
       game.save()
         .then(() => res.json('Game updated!'))

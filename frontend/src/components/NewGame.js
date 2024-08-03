@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 const NewGame = ({ startGame }) => {
   const [player1, setPlayer1] = useState('');
@@ -21,7 +22,7 @@ const NewGame = ({ startGame }) => {
 
   const styles = {
     h1: {
-      color:'black',
+      color:'white',
     }
   };
   return (
@@ -39,7 +40,10 @@ const NewGame = ({ startGame }) => {
         value={player2}
         onChange={(e) => setPlayer2(e.target.value)}
       />
-      <button onClick={handleStart}>Start</button>
+      
+      <div className="d-flex flex-column align-items-center p-2">
+        <button className='btn btn-success' onClick={handleStart}>Start</button>
+      </div>
     </div>
   );
 };

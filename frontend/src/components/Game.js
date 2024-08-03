@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../config/axiosConfig';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 const Game = ({ gameId, player1, player2, endGame }) => {
   const [board, setBoard] = useState(Array(9).fill(null));
@@ -100,11 +101,38 @@ const Game = ({ gameId, player1, player2, endGame }) => {
     h1: {
       color: 'white',
     },
+    winnerText: {
+      color: 'white',
+    },
+    winnerName: {
+      color: 'green',
+    },
+    currentPlayerText: {
+      color: 'white',
+    },
+    playerName: {
+      color: 'green',
+    },
   };
+  
   return (
     <div>
       <div className="status">
-        <h1 style={styles.h1}>{winner ? `Winner: ${winner}` : `Current player: ${xIsNext ? player1 : player2}`}</h1>
+        <h1 style={styles.h1}>
+          {winner ? (
+            <div>
+              <span style={styles.winnerText}>Winner:</span>
+              <br />
+              <span style={styles.winnerName}>{winner}</span>
+            </div>
+          ) : (
+            <div>
+              <span style={styles.currentPlayerText}>Current player:</span>
+              <br />
+              <span style={styles.playerName}>{xIsNext ? player1 : player2}</span>
+            </div>
+          )}
+        </h1>
       </div>
       <div className="board">
         {board.map((value, index) => (
@@ -114,9 +142,9 @@ const Game = ({ gameId, player1, player2, endGame }) => {
         ))}
       </div>
       {(winner || isDraw()) && (
-        <div>
-          <button onClick={handleEndGame}>Stop</button>
-          <button onClick={() => setBoard(Array(9).fill(null))}>Continue</button>
+        <div className="d-flex flex-column align-items-center">
+          <button className='btn btn-danger' onClick={handleEndGame}>Stop</button>
+          <button className='btn btn-success' onClick={() => setBoard(Array(9).fill(null))}>Continue</button>
         </div>
       )}
     </div>

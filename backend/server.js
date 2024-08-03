@@ -9,7 +9,7 @@ const gameRoutes = require('./routes/game');
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://tic-tac-toe-mvdf4908g-john-mangabos-projects-5c8e3afb.vercel.app/',
   methods: ['GET', 'POST', 'PUT'],
   allowedHeaders: ['Content-Type'],
   credentials: true, // Allow credentials

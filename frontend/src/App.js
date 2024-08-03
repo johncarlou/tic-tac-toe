@@ -14,7 +14,7 @@ const App = () => {
   };
 
   const startGame = (player1, player2) => {
-    axios.post(`http://localhost:5000/games/add`, { player1, player2 })
+    axios.post(`https://tic-tac-toe-backend-fll4.onrender.com/games/add`, { player1, player2 })
       .then((response) => {
         setCurrentGame(response.data);
         setPage('game');

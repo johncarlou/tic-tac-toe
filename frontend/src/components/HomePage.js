@@ -9,7 +9,7 @@ const HomePage = ({ startNewGame }) => {
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/games`);
+        const response = await axios.get(`https://tic-tac-toe-backend-fll4.onrender.com/games`);
         setGames(response.data);
       } catch (error) {
         console.error('Error fetching games:', error);
@@ -21,7 +21,7 @@ const HomePage = ({ startNewGame }) => {
 
   const handleDeleteAll = async () => {
     try {
-      await axios.delete('http://localhost:5000/games/deleteAll');
+      await axios.delete('https://tic-tac-toe-backend-fll4.onrender.com/games/deleteAll');
       setGames([]); 
     } catch (error) {
       console.error('Error deleting games:', error);

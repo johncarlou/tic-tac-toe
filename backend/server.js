@@ -9,7 +9,7 @@ const app = express();
 
 //enable CORS
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://tic-tac-toe-gamma-drab.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type'],
   credentials: true,

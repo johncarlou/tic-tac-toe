@@ -1,17 +1,20 @@
+// routes/game.js
 const router = require('express').Router();
 const Game = require('../models/Game');
 
-// Get all games
-router.route('/').get((req, res) => {
+// Define your routes
+router.get('/', (req, res) => {
   Game.find()
     .then(games => res.json(games))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.post('/add', (req, res) => {
+  const { player1, player2 } = req.body;
 
-router.route('/add').post((req, res) => {
-  const player1 = req.body.player1;
-  const player2 = req.body.player2;
+  if (!player1 || !player2) {
+    return res.status(400).json({ message: 'Both player1 and player2 are required' });
+  }
 
   const playerStats = {
     [player1]: { wins: 0, losses: 0, draws: 0 },
@@ -22,19 +25,16 @@ router.route('/add').post((req, res) => {
     player1,
     player2,
     playerStats,
-    wins: 0,
-    losses: 0,
-    draws: 0,
     rounds: [],
   });
 
   newGame.save()
-    .then(() => res.json('Game added!'))
+    .then(game => res.json(game))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Update game data
-router.route('/update/:id').put((req, res) => {
+// update records
+router.put('/update/:id', (req, res) => {
   Game.findById(req.params.id)
     .then(game => {
       if (!game) {
@@ -42,7 +42,7 @@ router.route('/update/:id').put((req, res) => {
       }
 
       game.rounds.push(req.body.round);
-      game.playerStats = req.body.playerStats; 
+      game.playerStats = req.body.playerStats;
 
       game.save()
         .then(() => res.json('Game updated!'))
@@ -51,27 +51,11 @@ router.route('/update/:id').put((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-
-// End a game 
-router.route('/end/:id').post((req, res) => {
-  Game.findById(req.params.id)
-    .then(game => {
-      game.isActive = false;
-      game.save()
-        .then(() => res.json('Game ended!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-    })
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
-
-// Delete 
-router.route('/deleteAll').delete((req, res) => {
+//delete
+router.delete('/deleteAll', (req, res) => {
   Game.deleteMany({})
     .then(() => res.json('All games deleted!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-
-
 
 module.exports = router;

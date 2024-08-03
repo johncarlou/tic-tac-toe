@@ -38,5 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://tic-tac-toe-backend-fll4.onrender.com/"
+  "proxy": "http://localhost:5000"
 }

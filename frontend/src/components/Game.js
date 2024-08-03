@@ -78,12 +78,12 @@ const Game = ({ gameId, player1, player2, endGame }) => {
       updatedStats[player2].draws += 1;
     }
 
-    axios.put(`http://localhost:5000/games/${gameId}`, {
+    axios.put(`http://localhost:5000/games/update/${gameId}`, {
       playerStats: updatedStats,
     })
     .then(() => {
       setPlayerStats(updatedStats);
-      endGame();
+      endGame();  // This should navigate back to homepage
     })
     .catch(error => {
       console.error('Error updating game stats:', error);
@@ -96,7 +96,7 @@ const Game = ({ gameId, player1, player2, endGame }) => {
 
   const styles = {
     h1: {
-      color:'white',
+      color: 'white',
     },
   };
   return (

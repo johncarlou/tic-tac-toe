@@ -7,7 +7,7 @@ const gameRoutes = require('./routes/game');
 
 const app = express();
 
-//enable CORS
+//to fix CORS issue
 app.use(cors({
   origin: 'https://tic-tac-toe-gamma-drab.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],

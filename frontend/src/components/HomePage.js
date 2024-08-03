@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchGames = async () => {
       try {
-        const response = await axios.get('https://tictactoe-backend-five.vercel.app/games');
+        const response = await axios.get('https://tic-tac-toe-backend-fll4.onrender.com/games');
         setGames(response.data);
       } catch (error) {
         console.error('Error fetching games:', error);

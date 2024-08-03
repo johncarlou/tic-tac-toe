@@ -14,7 +14,7 @@ const App = () => {
   };
 
   const startGame = (player1, player2) => {
-    axios.post('https://tictactoe-backend-five.vercel.app', { player1, player2 })
+    axios.post('https://tic-tac-toe-backend-fll4.onrender.com/', { player1, player2 })
       .then((response) => {
         setCurrentGame(response.data);
         setPage('game');

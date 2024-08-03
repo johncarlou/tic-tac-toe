@@ -8,12 +8,11 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// Add a new game
+
 router.route('/add').post((req, res) => {
   const player1 = req.body.player1;
   const player2 = req.body.player2;
 
-  // Initialize playerStats with empty stats
   const playerStats = {
     [player1]: { wins: 0, losses: 0, draws: 0 },
     [player2]: { wins: 0, losses: 0, draws: 0 },
@@ -22,7 +21,7 @@ router.route('/add').post((req, res) => {
   const newGame = new Game({
     player1,
     player2,
-    playerStats, // Add playerStats
+    playerStats,
     wins: 0,
     losses: 0,
     draws: 0,
@@ -43,7 +42,7 @@ router.route('/update/:id').put((req, res) => {
       }
 
       game.rounds.push(req.body.round);
-      game.playerStats = req.body.playerStats; // Update playerStats
+      game.playerStats = req.body.playerStats; 
 
       game.save()
         .then(() => res.json('Game updated!'))
@@ -53,7 +52,7 @@ router.route('/update/:id').put((req, res) => {
 });
 
 
-// End a game (if needed for future features)
+// End a game 
 router.route('/end/:id').post((req, res) => {
   Game.findById(req.params.id)
     .then(game => {
